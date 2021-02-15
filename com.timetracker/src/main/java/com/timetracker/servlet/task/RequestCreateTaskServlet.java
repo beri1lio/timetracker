@@ -1,5 +1,6 @@
 package com.timetracker.servlet.task;
 
+import com.timetracker.db.entity.Status;
 import com.timetracker.db.entity.Task;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
@@ -12,21 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/task")
-public class TaskServlet extends HttpServlet {
-
+@WebServlet("/request-create-task")
+public class RequestCreateTaskServlet extends HttpServlet {
     private TaskService taskService = new TaskServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int userId = (int) req.getSession().getAttribute("userID");
         String name = req.getParameter("taskName");
-        String userID = req.getParameter("userID");
         String categoryID = req.getParameter("categoryID");
 
         Task task = new Task.Builder()
                 .withName(name)
-                .withUserId(Integer.parseInt(userID))
+                .withUserId(userId)
                 .withCategoryId(Integer.parseInt(categoryID))
+                .withStatus(Status.NEW)
                 .build();
         try{
             taskService.newTask(task);
@@ -34,6 +35,6 @@ public class TaskServlet extends HttpServlet {
             sqlException.printStackTrace();
         }
 
-        resp.sendRedirect("/tasks");
+        resp.sendRedirect("/profile");
     }
 }

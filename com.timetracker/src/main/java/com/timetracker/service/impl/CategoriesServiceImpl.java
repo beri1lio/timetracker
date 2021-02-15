@@ -22,4 +22,21 @@ public class CategoriesServiceImpl implements CategoriesService {
         return allCategories;
 
     }
+
+    @Override
+    public List<Category> findAllCategory(int offset, int limit) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        List<Category> allCategories = categoryDAO.findAllCategories(offset, limit, connection);
+        connection.close();
+        return allCategories;
+
+    }
+
+    @Override
+    public int getCategoryCount() throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        int count = categoryDAO.getCategoryCount(connection);
+        connection.close();
+        return count;
+    }
 }

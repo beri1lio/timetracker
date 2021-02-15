@@ -14,6 +14,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDAO categoryDAO = new CategoryDAO();
 
     @Override
+    public void deleteCategory(int parseInt) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        categoryDAO.deleteCategory(parseInt, connection);
+        connection.close();
+    }
+
+    @Override
     public boolean newCategory(Category category) throws SQLException {
         Connection connection = connectionPool.getConnection();
         Category currentCategory = categoryDAO.getCategory(category.getName(), connection);

@@ -8,6 +8,7 @@ public class TaskTableItem {
     private String categoryName;
     private Time time;
     private String userName;
+    private Status status;
 
     public int getId() {
         return id;
@@ -27,6 +28,10 @@ public class TaskTableItem {
 
     public String getUserName() {
         return userName;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public static class Builder{
@@ -58,6 +63,11 @@ public class TaskTableItem {
 
         public Builder withUserString(String name){
             item.userName = name;
+            return this;
+        }
+
+        public Builder withStatus(Status status){
+            item.status = status;
             return this;
         }
 

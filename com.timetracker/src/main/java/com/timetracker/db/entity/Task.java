@@ -8,6 +8,11 @@ public class Task {
     private Time time;
     private int userId;
     private int categoryId;
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
 
     public int getId() {
         return id;
@@ -58,6 +63,11 @@ public class Task {
 
         public Builder withCategoryId(int id){
             newTask.categoryId = id;
+            return this;
+        }
+
+        public Builder withStatus(Status status){
+            newTask.status = status;
             return this;
         }
 

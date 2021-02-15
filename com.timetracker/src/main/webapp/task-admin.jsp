@@ -23,12 +23,22 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/tasks">Tasks</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/users">Users</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks">Approves</a>
+            </nav>
+        </div>
+    </div>
+
 
     <div class="row" style="padding-top: 6%;">
         <div class="col">
             <div class="row">
                 <!-- CREATE CATEGORY START-->
-                <div class="col-4">
+                <div class="col">
                     <form class="row g-3" action="/category" method="post">
                         <div class="col-auto">
                             <label for="inputCategory" class="visually-hidden">Category name</label>
@@ -42,7 +52,7 @@
                 </div>
                 <!-- CREATE CATEGORY END-->
                 <!-- CREATE TASK START-->
-                <div class="col-8">
+                <div class="col">
                     <form class="row gy-2 gx-3 align-items-center" action="/task" method="post">
                         <div class="col-auto">
                             <label class="visually-hidden" for="taskNameInput">Task</label>

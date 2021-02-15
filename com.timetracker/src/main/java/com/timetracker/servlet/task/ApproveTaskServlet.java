@@ -1,0 +1,42 @@
+package com.timetracker.servlet.task;
+
+import com.timetracker.db.entity.Status;
+import com.timetracker.service.TaskService;
+import com.timetracker.service.impl.TaskServiceImpl;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet("/approve-tasks")
+public class ApproveTaskServlet extends HttpServlet {
+    private TaskService taskService = new TaskServiceImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.setAttribute("data", taskService.getUnapprovedTasks());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        req.getRequestDispatcher("/approve-task-admin.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String taskID = req.getParameter("task-id");
+
+        try {
+            taskService.updateStatus(Integer.parseInt(taskID), Status.APPROVED);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        resp.sendRedirect("/approve-tasks");
+    }
+}

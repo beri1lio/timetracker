@@ -1,7 +1,7 @@
 package com.timetracker.service.impl;
 
+import com.timetracker.db.entity.Status;
 import com.timetracker.db.entity.TaskTableItem;
-import com.timetracker.dto.TaskDto;
 import com.timetracker.db.entity.Task;
 import com.timetracker.db.repository.dao.ConnectionPool;
 import com.timetracker.db.repository.dao.TaskDAO;
@@ -10,7 +10,6 @@ import com.timetracker.service.TaskService;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskServiceImpl implements TaskService {
@@ -33,17 +32,11 @@ public class TaskServiceImpl implements TaskService {
         return thisTask != null;
     }
 
-    @Override
-    public List<TaskDto> findTasksByUserId(int id) throws SQLException {
+    public List<TaskTableItem> getUnapprovedTasks() throws SQLException {
         connection = connectionPool.getConnection();
-        List<Task> tasks = taskDAO.getTasksUserId(id, connection);
-        List<TaskDto> taskDtos = new ArrayList<>();
-        for (Task task : tasks) {
-            TaskDto taskDto = new TaskDto(task.getId(), task.getName(), task.getTime());
-            taskDtos.add(taskDto);
-        }
+        List<TaskTableItem> tasks = taskDAO.getUnapprovedTasks(connection);
         connection.close();
-        return taskDtos;
+        return tasks;
     }
 
     @Override
@@ -71,10 +64,32 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public int getTaskCount(String search) throws SQLException {
         connection = connectionPool.getConnection();
-        int taskCount = taskDAO.getTaskCount(search, connectionPool.getConnection());
+        int taskCount = taskDAO.getTaskCount(search, connection);
         connection.close();
         return taskCount;
     }
 
+    @Override
+    public int getTaskCount(int userId) throws SQLException {
+        connection = connectionPool.getConnection();
+        int taskCount = taskDAO.getTaskCount(userId, connection);
+        connection.close();
+        return taskCount;
+    }
+
+    @Override
+    public List<Task> findTasksByUserId(int id, int offset, int limit) throws SQLException {
+        connection = connectionPool.getConnection();
+        List<Task> allTasks = taskDAO.getTasksUserId(id, offset, limit, connection);
+        connection.close();
+        return allTasks;
+    }
+
+    @Override
+    public void updateStatus(int taskId, Status status) throws SQLException {
+        connection = connectionPool.getConnection();
+        taskDAO.updateStatus(taskId, status, connection);
+        connection.close();
+    }
 }
 

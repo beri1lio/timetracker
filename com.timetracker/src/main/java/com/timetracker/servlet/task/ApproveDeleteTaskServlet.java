@@ -1,7 +1,7 @@
-package com.timetracker.servlet;
+package com.timetracker.servlet.task;
 
-import com.timetracker.service.UserService;
-import com.timetracker.service.impl.UserServiceImpl;
+import com.timetracker.service.TaskService;
+import com.timetracker.service.impl.TaskServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/delete-user")
-public class DeleteUserServlet extends HttpServlet {
+@WebServlet("/approve-delete-task")
+public class ApproveDeleteTaskServlet extends HttpServlet {
 
-    private UserService userService = new UserServiceImpl();
+    private TaskService taskService = new TaskServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userID = req.getParameter("user-id");
+        String taskID = req.getParameter("task-id");
 
         try {
-            userService.deleteUser(Integer.parseInt(userID));
+            taskService.deleteTask(Integer.parseInt(taskID));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/approve-tasks");
     }
 }

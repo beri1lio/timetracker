@@ -24,6 +24,16 @@
         </div>
     </div>
     <!--HEADER END-->
+    <div class="row">
+        <div class="col">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/tasks">Tasks</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/users">Users</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks">Approves</a>
+            </nav>
+        </div>
+    </div>
+
     <div class="row" style="padding-top: 6%;">
         <div class="col">
             <!--SEARCH AND SORT START-->

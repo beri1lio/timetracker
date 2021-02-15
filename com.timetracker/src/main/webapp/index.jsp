@@ -7,6 +7,9 @@
 <body>
 userID:<c:out value='${sessionScope.userID}'/>
 <c:if test="${!sessionScope.isEmpty()}">
+<%--    <c:if test="${sessionScope.userID == 1}">--%>
+<%--        <a href="/users">Profile</a>--%>
+<%--    </c:if>--%>
     <a href="/profile">Profile</a>
 </c:if>
 <p><a href="/authorization">Log in</a></p>

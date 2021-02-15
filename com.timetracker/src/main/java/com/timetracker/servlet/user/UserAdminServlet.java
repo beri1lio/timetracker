@@ -1,8 +1,8 @@
 package com.timetracker.servlet.user;
 
 import com.timetracker.db.entity.UserSortBy;
-import com.timetracker.service.UserAdminService;
-import com.timetracker.service.impl.UserAdminServiceImpl;
+import com.timetracker.service.UserService;
+import com.timetracker.service.impl.UserServiceImpl;
 import com.timetracker.util.pagination.PaginationDataCountProvider;
 import com.timetracker.util.pagination.PaginationDataDefaultOrderProvider;
 import com.timetracker.util.pagination.PaginationDataProvider;
@@ -19,21 +19,20 @@ import java.util.List;
 
 @WebServlet("/users")
 public class UserAdminServlet extends HttpServlet {
-
+    private UserService userService = new UserServiceImpl();
 
     private final PaginationDataProvider dataProvider = new PaginationDataProvider() {
         @Override
         public List provideData(int offset, int limit, String orderBy, String search) throws SQLException {
-            UserAdminService userAdminService = new UserAdminServiceImpl();
-            return userAdminService.findAllUser(offset, 10, orderBy, search);
+
+            return userService.findAllUser(offset, 10, orderBy, search);
         }
     };
 
     private final PaginationDataCountProvider dataCountProvider = new PaginationDataCountProvider() {
         @Override
         public int provideDataCount(String search) throws SQLException {
-            UserAdminService userAdminService = new UserAdminServiceImpl();
-            return userAdminService.getUserCount(search);
+            return userService.getUserCount(search);
         }
     };
 
