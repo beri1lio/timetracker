@@ -61,14 +61,8 @@ public class TasksServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PaginationUtil.executePagination(req, resp, dataProvider, dataCountProvider, dataDefaultOrderProvider);
         try{
-
-            List<CategoryDto> tableData = categoriesTableDataService.findAllCategory();
             List<User> users = userAdminService.findAllUser();
             List<Category> categories = categoriesService.findAllCategory();
-            HttpSession session = req.getSession();
-            if(tableData != null){
-                req.setAttribute("tableData", tableData);
-            }
             if(users != null){
                 req.setAttribute("users", users);
             }

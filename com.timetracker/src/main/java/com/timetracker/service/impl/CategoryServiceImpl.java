@@ -2,24 +2,28 @@ package com.timetracker.service.impl;
 
 import com.timetracker.db.entity.Category;
 import com.timetracker.db.repository.dao.CategoryDAO;
-import com.timetracker.db.repository.dao.DBManager;
+import com.timetracker.db.repository.dao.ConnectionPool;
 import com.timetracker.service.CategoryService;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class CategoryServiceImpl implements CategoryService {
 
-    private DBManager dbManager = DBManager.getInstance();
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private CategoryDAO categoryDAO = new CategoryDAO();
 
     @Override
     public boolean newCategory(Category category) throws SQLException {
-        Category currentCategory = categoryDAO.getCategory(category.getName(), dbManager.getConnection());
+        Connection connection = connectionPool.getConnection();
+        Category currentCategory = categoryDAO.getCategory(category.getName(), connection);
 
         if(currentCategory != null){
             return false;
         }
 
-        return categoryDAO.addCategory(dbManager.getConnection(), category) != null;
+        Category category1 = categoryDAO.addCategory(connection, category);
+        connection.close();
+        return category1 != null;
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Context>
+    <!-- Specify a JDBC datasource -->
+    <Resource name="jdbc/timetracker"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="root"
+              password="4815162342"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/timetracker?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+              validationQuery="select 1"
+              maxActive="15"
+              maxIdle="4"/>
+</Context>

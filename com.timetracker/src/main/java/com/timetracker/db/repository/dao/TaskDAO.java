@@ -29,7 +29,7 @@ public class TaskDAO {
     private static final String SELECT_FROM_TASK_WHERE_USER_ID = "SELECT * FROM `task` WHERE `user_id`=?;";
     private static final String SELECT_FROM_TASK_WHERE_CATEGORY_ID = "SELECT * FROM `task` WHERE `category_id`=?;";
     private static final String DELETE_TASK = "DELETE FROM `task` WHERE `id`=?";
-    public static final String UPDATE_TIME = "UPDATE `time_journal`.`task` SET `time`=? WHERE  `id`=?;";
+    public static final String UPDATE_TIME = "UPDATE `timetracker`.`task` SET `time`=? WHERE  `id`=?;";
 
     public Task getTaskId(int id, Connection connection) throws SQLException{
         return getTask(id, SELECT_FROM_TASK_WHERE_ID, connection);

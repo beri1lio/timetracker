@@ -45,6 +45,7 @@ public class PaginationUtil {
         try {
             return (int) Math.ceil(dataCountProvider.provideDataCount(search) / 10.0);
         } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
             return defaultMaxPageNumber;
         }
     }
