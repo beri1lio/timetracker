@@ -1,11 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
+    <!-- LOCALIZATION START-->
+    <c:if test="${sessionScope.locale == null}">
+        <fmt:setLocale value="ru"/>
+    </c:if>
+    <c:if test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${sessionScope.locale}"/>
+    </c:if>
+    <fmt:setBundle basename="locale.global" var="bundle"/>
+    <!-- LOCALIZATION END-->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Users</title>
+    <title><fmt:message key="global.users" bundle="${bundle}"/></title>
 </head>
 <body>
 <div class="container">
@@ -17,7 +29,7 @@
                     <a class="navbar-brand" href="/">
                         <img src="resources/img/clock.jpg" alt="" width="30" height="24"
                              class="d-inline-block align-top">
-                        TimeTracker
+                        <fmt:message key="global.timetracker" bundle="${bundle}"/>
                     </a>
                 </div>
             </nav>
@@ -27,9 +39,9 @@
     <div class="row">
         <div class="col">
             <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/tasks">Tasks</a>
-                <a class="flex-sm-fill text-sm-center nav-link active" href="/users">Users</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks">Approves</a>
+                <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks"><fmt:message key="global.approves" bundle="${bundle}"/></a>
             </nav>
         </div>
     </div>
@@ -41,7 +53,7 @@
                 <div class="card-body">
                     <form action="/users" method="get">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="search" placeholder="Search" aria-label="Search">
+                            <input type="text" class="form-control" name="search" placeholder=<fmt:message key="global.search" bundle="${bundle}"/> aria-label="Search">
                         </div>
                         <div class="row">
                             <div class="col">
@@ -58,7 +70,7 @@
                                             </c:when>
                                         </c:choose>
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                            Sort by name
+                                            <fmt:message key="global.sort_by_name" bundle="${bundle}"/>
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -73,14 +85,14 @@
                                             </c:when>
                                         </c:choose>
                                         <label class="form-check-label" for="flexRadioDefault2">
-                                            Sort by login
+                                            <fmt:message key="global.sort_by_login" bundle="${bundle}"/>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-primary me-md-2" type="submit">Search</button>
+                                    <button class="btn btn-primary me-md-2" type="submit"><fmt:message key="global.search" bundle="${bundle}"/></button>
                                 </div>
                             </div>
                         </div>
@@ -92,11 +104,10 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Login</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col"></th>
+                    <th scope="col"><fmt:message key="global.id" bundle="${bundle}"/></th>
+                    <th scope="col"><fmt:message key="global.login" bundle="${bundle}"/></th>
+                    <th scope="col"><fmt:message key="global.name" bundle="${bundle}"/></th>
+                    <th scope="col"><fmt:message key="global.role" bundle="${bundle}"/></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -107,19 +118,12 @@
                         <td>${user.login}</td>
                         <td>${user.name}</td>
                         <td>${user.role}</td>
-                        <td>
-                            <form action="/edit-user" method="get">
-                                <input type="hidden" name="user-id" value="${user.id}">
-                                <input type="hidden" name="login" value="${user.login}">
-                                <input type="hidden" name="name" value="${user.name}">
 
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
                         <td>
                             <form class="row gy-2 gx-3 align-items-center" action="/delete-user" method="post">
                                 <div class="input-group">
                                     <input type="hidden" name="user-id" value="${user.id}">
-                                    <button class="btn btn-outline-secondary" type="submit">Delete</button>
+                                    <button class="btn btn-outline-secondary" type="submit"><fmt:message key="global.delete" bundle="${bundle}"/></button>
                                 </div>
                             </form>
                         </td>
@@ -134,12 +138,12 @@
                     <c:choose>
                         <c:when test="${currentPage <= 0}">
                             <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><fmt:message key="global.previous" bundle="${bundle}"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li class="page-item">
-                                <a class="page-link" href="/users?currentPage=${currentPage - 1}&search=${search}&orderBy=${orderBy}">Previous</a>
+                                <a class="page-link" href="/users?currentPage=${currentPage - 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.previous" bundle="${bundle}"/></a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -147,12 +151,12 @@
                     <c:choose>
                         <c:when test="${currentPage >= maxPage -1}">
                             <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-disabled="true" tabindex="-1" >Next</a>
+                                <a class="page-link" href="#" aria-disabled="true" tabindex="-1" ><fmt:message key="global.next" bundle="${bundle}"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li class="page-item">
-                                <a class="page-link" href="/users?currentPage=${currentPage + 1}&search=${search}&orderBy=${orderBy}">Next</a>
+                                <a class="page-link" href="/users?currentPage=${currentPage + 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.next" bundle="${bundle}"/></a>
                             </li>
                         </c:otherwise>
                     </c:choose>

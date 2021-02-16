@@ -1,9 +1,24 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
+
+    <!-- LOCALIZATION START-->
+    <c:if test="${sessionScope.locale == null}">
+        <fmt:setLocale value="ru"/>
+    </c:if>
+    <c:if test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${sessionScope.locale}"/>
+    </c:if>
+    <fmt:setBundle basename="locale.global" var="bundle"/>
+    <!-- LOCALIZATION END-->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Registration</title>
+    <title><fmt:message key="global.registration" bundle="${bundle}"/></title>
 </head>
 <body>
 <div class="container">
@@ -14,7 +29,7 @@
                     <a class="navbar-brand" href="/">
                         <img src="resources/img/clock.jpg" alt="" width="30" height="24"
                              class="d-inline-block align-top">
-                        TimeTracker
+                        <fmt:message key="global.timetracker" bundle="${bundle}"/>
                     </a>
                 </div>
             </nav>
@@ -26,22 +41,22 @@
             <div class="card">
                 <img src="resources/img/RegistrationBackGround.png" class="card-img-bottom" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Registration</h5>
+                    <h5 class="card-title"><fmt:message key="global.registration" bundle="${bundle}"/></h5>
                     <p class="card-text">
                     <form action="/registration-user" method="post">
                         <div class="mb-3">
-                            <label for="InputLogin" class="form-label">Enter login</label>
+                            <label for="InputLogin" class="form-label"><fmt:message key="global.Enter_login" bundle="${bundle}"/></label>
                             <input type="text" class="form-control" id="InputLogin" name="login">
                         </div>
                         <div class="mb-3">
-                            <label for="InputName" class="form-label">Enter name</label>
+                            <label for="InputName" class="form-label"><fmt:message key="global.enter_name" bundle="${bundle}"/></label>
                             <input type="text" class="form-control" id="InputName" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <label for="exampleInputPassword1" class="form-label"><fmt:message key="global.password" bundle="${bundle}"/></label>
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary"><fmt:message key="global.submit" bundle="${bundle}"/></button>
                     </form>
                     </p>
                 </div>

@@ -11,13 +11,13 @@
     <c:if test="${sessionScope.locale != null}">
         <fmt:setLocale value="${sessionScope.locale}"/>
     </c:if>
-    <fmt:setBundle basename="localization" var="bundle"/>
+    <fmt:setBundle basename="locale.global" var="bundle"/>
     <!-- LOCALIZATION END-->
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <title>Profile <fmt:message key="global.profile" bundle="${bundle}"/> </title>
+    <title><fmt:message key="global.profile" bundle="${bundle}"/></title>
 </head>
 <body>
 <div class="container">
@@ -38,9 +38,9 @@
     <div class="col-8">
         <form class="row gy-2 gx-3 align-items-center" action="/request-create-task" method="post">
             <div class="col-auto">
-                <label class="visually-hidden" for="taskNameInput"><fmt:message key="global.task" bundle="${bundle}"/> </label>
+                <label class="visually-hidden" for="taskNameInput"><fmt:message key="global.task" bundle="${bundle}"/></label>
                 <input type="text" name="taskName" class="form-control" id="taskNameInput"
-                       placeholder="Task">
+                       placeholder=<fmt:message key="global.task" bundle="${bundle}"/>>
             </div>
             <div class="col-auto">
                 <label class="visually-hidden" for="categorySelect"><fmt:message key="global.category" bundle="${bundle}"/></label>
@@ -102,7 +102,7 @@
                             <div class="input-group">
                                 <input type="hidden" name="task-id" value="${task.id}">
                                 <input type="text" name="time" class="form-control" aria-describedby="time" disabled>
-                                <button class="btn btn-outline-secondary disabled" type="submit">Update</button>
+                                <button class="btn btn-outline-secondary disabled" type="submit"><fmt:message key="global.update" bundle="${bundle}"/></button>
                             </div>
                         </form>
                     </td>
