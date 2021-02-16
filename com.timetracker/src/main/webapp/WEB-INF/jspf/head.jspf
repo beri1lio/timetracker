@@ -1,0 +1,11 @@
+<!-- Bootstrap CSS -->
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- LOCALIZATION START-->
+<c:if test="${sessionScope.locale != null}">
+    <fmt:setLocale value="${sessionScope.locale}"/>
+</c:if>
+<fmt:setBundle basename="locale.global" var="bundle"/>
+<!-- LOCALIZATION END-->
+
+<title><fmt:message key="global.${currentPageName}" bundle="${bundle}"/></title>

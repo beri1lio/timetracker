@@ -3,46 +3,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
-    <!-- LOCALIZATION START-->
-    <c:if test="${sessionScope.locale == null}">
-        <fmt:setLocale value="ru"/>
-    </c:if>
-    <c:if test="${sessionScope.locale != null}">
-        <fmt:setLocale value="${sessionScope.locale}"/>
-    </c:if>
-    <fmt:setBundle basename="locale.global" var="bundle"/>
-    <!-- LOCALIZATION END-->
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title><fmt:message key="global.users" bundle="${bundle}"/></title>
+    <c:set var="currentPageName" value="users" scope="session"/>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
 <div class="container">
     <!--HEADER START-->
     <div class="row">
         <div class="col">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <img src="resources/img/clock.jpg" alt="" width="30" height="24"
-                             class="d-inline-block align-top">
-                        <fmt:message key="global.timetracker" bundle="${bundle}"/>
-                    </a>
-                </div>
-            </nav>
+            <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
     </div>
     <!--HEADER END-->
     <div class="row">
         <div class="col">
-            <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
-                <a class="flex-sm-fill text-sm-center nav-link active" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks"><fmt:message key="global.approves" bundle="${bundle}"/></a>
-            </nav>
+            <c:set var="activePage" value="users" scope="session"/>
+            <%@ include file="/WEB-INF/jspf/admin-navigation.jspf" %>
         </div>
     </div>
 
@@ -166,20 +142,6 @@
         </div>
     </div>
 </div>
-<!-- Optional JavaScript; choose one of the two! -->
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
--->
+<%@ include file="/WEB-INF/jspf/foother.jspf" %>
 </body>
 </html>

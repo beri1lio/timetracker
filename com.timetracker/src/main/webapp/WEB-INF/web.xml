@@ -11,6 +11,14 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>registration</servlet-name>
         <jsp-file>/registration.jsp</jsp-file>
     </servlet>
@@ -25,14 +33,6 @@
     <servlet-mapping>
         <servlet-name>authorization</servlet-name>
         <url-pattern>/authorization</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>edit-user</servlet-name>
-        <jsp-file>/edit-user.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>edit-user</servlet-name>
-        <url-pattern>/edit-user</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -1,0 +1,29 @@
+<nav class="nav nav-pills flex-column flex-sm-row">
+    <c:choose>
+        <c:when test="${currentPageName == 'tasks'}">
+            <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks"><fmt:message key="global.approve-tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/categories"><fmt:message key="global.categories" bundle="${bundle}"/></a>
+        </c:when>
+        <c:when test="${currentPageName == 'users'}">
+            <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link active" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks"><fmt:message key="global.approve-tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/categories"><fmt:message key="global.categories" bundle="${bundle}"/></a>
+        </c:when>
+        <c:when test="${currentPageName == 'approve-tasks'}">
+            <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link active" href="/approve-tasks"><fmt:message key="global.approve-tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/categories"><fmt:message key="global.categories" bundle="${bundle}"/></a>
+        </c:when>
+        <c:when test="${currentPageName == 'categories'}">
+            <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/approve-tasks"><fmt:message key="global.approve-tasks" bundle="${bundle}"/></a>
+            <a class="flex-sm-fill text-sm-center nav-link active" href="/categories"><fmt:message key="global.categories" bundle="${bundle}"/></a>
+        </c:when>
+    </c:choose>
+
+</nav>

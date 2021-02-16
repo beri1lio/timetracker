@@ -1,0 +1,28 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="resources/img/clock.jpg" alt="" width="30" height="24"
+                 class="d-inline-block align-top">
+            <fmt:message key="global.index" bundle="${bundle}"/>
+        </a>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <c:if test="${sessionScope.locale == 'ru'}">
+                    <a class="nav-link active" aria-current="page" href="/${currentPageName}?locale=ru">Ru</a>
+                </c:if>
+                <c:if test="${sessionScope.locale != 'ru'}">
+                    <a class="nav-link" aria-current="page" href="/${currentPageName}?locale=ru">Ru</a>
+                </c:if>
+            </li>
+            <li class="nav-item">
+                <c:if test="${sessionScope.locale == 'en'}">
+                    <a class="nav-link active" href="/${currentPageName}?locale=en">En</a>
+                </c:if>
+                <c:if test="${sessionScope.locale != 'en'}">
+                    <a class="nav-link" href="/${currentPageName}?locale=en">En</a>
+                </c:if>
+
+            </li>
+        </ul>
+    </div>
+</nav>

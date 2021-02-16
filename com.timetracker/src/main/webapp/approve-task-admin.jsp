@@ -3,44 +3,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
-    <!-- LOCALIZATION START-->
-    <c:if test="${sessionScope.locale == null}">
-        <fmt:setLocale value="ru"/>
-    </c:if>
-    <c:if test="${sessionScope.locale != null}">
-        <fmt:setLocale value="${sessionScope.locale}"/>
-    </c:if>
-    <fmt:setBundle basename="locale.global" var="bundle"/>
-    <!-- LOCALIZATION END-->
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <title><fmt:message key="global.approves" bundle="${bundle}"/></title>
+    <c:set var="currentPageName" value="approve-tasks" scope="session"/>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <img src="resources/img/clock.jpg" alt="" width="30" height="24"
-                             class="d-inline-block align-top">
-                        <fmt:message key="global.timetracker" bundle="${bundle}"/>
-                    </a>
-                </div>
-            </nav>
+            <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/tasks"><fmt:message key="global.tasks" bundle="${bundle}"/></a>
-                <a class="flex-sm-fill text-sm-center nav-link " href="/users"><fmt:message key="global.users" bundle="${bundle}"/></a>
-                <a class="flex-sm-fill text-sm-center nav-link active" href="/approve-tasks"><fmt:message key="global.approves" bundle="${bundle}"/></a>
-            </nav>
+            <%@ include file="/WEB-INF/jspf/admin-navigation.jspf" %>
         </div>
     </div>
     <table class="table table-bordered">
@@ -110,5 +85,6 @@
         </tbody>
     </table>
 </div>
+<%@ include file="/WEB-INF/jspf/foother.jspf" %>
 </body>
 </html>
