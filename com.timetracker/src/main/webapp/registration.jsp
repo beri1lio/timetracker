@@ -24,18 +24,22 @@
                     <p class="card-text">
                     <form action="/registration-user" method="post">
                         <div class="mb-3">
-                            <label for="InputLogin" class="form-label"><fmt:message key="global.Enter_login" bundle="${bundle}"/></label>
+                            <label for="InputLogin" class="form-label"><fmt:message key="global.Enter_login"
+                                                                                    bundle="${bundle}"/></label>
                             <input type="text" class="form-control" id="InputLogin" name="login">
                         </div>
                         <div class="mb-3">
-                            <label for="InputName" class="form-label"><fmt:message key="global.enter_name" bundle="${bundle}"/></label>
+                            <label for="InputName" class="form-label"><fmt:message key="global.enter_name"
+                                                                                   bundle="${bundle}"/></label>
                             <input type="text" class="form-control" id="InputName" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label"><fmt:message key="global.password" bundle="${bundle}"/></label>
+                            <label for="exampleInputPassword1" class="form-label"><fmt:message key="global.password"
+                                                                                               bundle="${bundle}"/></label>
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
-                        <button type="submit" class="btn btn-primary"><fmt:message key="global.submit" bundle="${bundle}"/></button>
+                        <button type="submit" class="btn btn-primary"><fmt:message key="global.submit"
+                                                                                   bundle="${bundle}"/></button>
                     </form>
                     </p>
                 </div>

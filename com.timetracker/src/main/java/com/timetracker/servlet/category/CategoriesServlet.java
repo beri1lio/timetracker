@@ -8,6 +8,8 @@ import com.timetracker.util.pagination.PaginationDataProvider;
 import com.timetracker.util.pagination.PaginationUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpMethodConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+@ServletSecurity(httpMethodConstraints = {
+        @HttpMethodConstraint(value = "GET", rolesAllowed = "ADMIN")
+})
 @WebServlet("/categories")
 public class CategoriesServlet extends HttpServlet {
 
