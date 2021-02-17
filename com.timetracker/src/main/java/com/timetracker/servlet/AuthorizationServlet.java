@@ -25,7 +25,6 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LOGGER.error("AuthorizationServlet#doPost()");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String md5HexPassword = DigestUtils.md5Hex(password);
@@ -42,9 +41,12 @@ public class AuthorizationServlet extends HttpServlet {
             if (currentUser != null) {
                 session.setAttribute("userID", currentUser.getId());
                 session.setAttribute("userRole", currentUser.getRole().name());
+                LOGGER.info("User " + currentUser.getId() + " is authorized.");
             }
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            LOGGER.error(sqlException.getMessage());
         }
+
+        resp.sendRedirect("/");
     }
 }

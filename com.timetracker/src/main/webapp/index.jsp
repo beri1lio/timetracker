@@ -24,16 +24,13 @@
                             <fmt:message key="global.log_in" bundle="${bundle}"/>
                             <a class="card-link" href="/registration"><fmt:message key="global.sign_up"
                                                                                    bundle="${bundle}"/>
-                    <form action="/logout" method="post">
-                        <button type="submit" class="btn btn-primary"><fmt:message key="global.log_out"
-                                                                                   bundle="${bundle}"/></button>
-                    </form>
+
                     </p>
                 </div>
             </div>
         </div>
+        <div class="col"></div>
     </div>
-    <div class="col"></div>
 </div>
 
 <%@ include file="/WEB-INF/jspf/foother.jspf" %>

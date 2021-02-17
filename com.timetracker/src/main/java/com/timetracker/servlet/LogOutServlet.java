@@ -13,6 +13,7 @@ public class LogOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().removeAttribute("userID");
+        req.getSession().removeAttribute("userRole");
 
         resp.sendRedirect("/");
     }

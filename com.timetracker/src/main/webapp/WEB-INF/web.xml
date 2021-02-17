@@ -34,25 +34,28 @@
         <servlet-name>authorization</servlet-name>
         <url-pattern>/authorization</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>404</servlet-name>
+        <jsp-file>/404.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>404</servlet-name>
+        <url-pattern>/404</url-pattern>
+    </servlet-mapping>
 
-    <!--<security-constraint>
-        <web-resource-collection>
-            <web-resource-name>categories</web-resource-name>
-            <url-pattern>/categories</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>ADMIN</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-role>
-        <role-name>ADMIN</role-name>
-    </security-role>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/error/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/error/error500.jsp</location>
+    </error-page>
 
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Tomcat Manager Application</realm-name>
-    </login-config>-->
+    <display-name>Log4jWebDemo1</display-name>
 
+    <context-param>
+        <param-name>log4j-config-location</param-name>
+        <param-value>WEB-INF/log4j.properties</param-value>
+    </context-param>
 </web-app>

@@ -23,6 +23,12 @@
                 </c:if>
 
             </li>
+            <li class="nav-item">
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn btn-primary"><fmt:message key="global.log_out"
+                                                                               bundle="${bundle}"/></button>
+                </form>
+            </li>
         </ul>
     </div>
 </nav>

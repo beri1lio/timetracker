@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@ServletSecurity(httpMethodConstraints = {
-        @HttpMethodConstraint(value = "GET", rolesAllowed = "ADMIN")
-})
 @WebServlet("/categories")
 public class CategoriesServlet extends HttpServlet {
 
