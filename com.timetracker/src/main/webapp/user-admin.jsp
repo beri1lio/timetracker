@@ -10,6 +10,7 @@
 <div class="container">
     <!--HEADER START-->
     <div class="row">
+    <div class="row">
         <div class="col">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
@@ -89,6 +90,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${data}" var="user">
+                    <c:if test="${user.id != sessionScope.userID}">
                     <tr>
                         <td>${user.id}</td>
                         <td>${user.login}</td>
@@ -104,6 +106,7 @@
                             </form>
                         </td>
                     </tr>
+                    </c:if>
                 </c:forEach>
                 </tbody>
             </table>

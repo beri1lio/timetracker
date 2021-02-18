@@ -60,9 +60,7 @@
                             <select class="form-select" id="userSelect" name="userID">
                                 <option selected><fmt:message key="global.user" bundle="${bundle}"/>...</option>
                                 <c:forEach items="${users}" var="user">
-                                    <c:if test="${user.id != 1}">
                                     <option value="${user.id}">"${user.name}"</option>
-                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
