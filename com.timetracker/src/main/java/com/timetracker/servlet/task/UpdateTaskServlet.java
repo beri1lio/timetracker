@@ -2,6 +2,8 @@ package com.timetracker.servlet.task;
 
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,8 @@ import java.text.SimpleDateFormat;
 @WebServlet("/update-time")
 public class UpdateTaskServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(UpdateTaskServlet.class);
+
     private TaskService taskService = new TaskServiceImpl();
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
@@ -29,7 +33,7 @@ public class UpdateTaskServlet extends HttpServlet {
             long ms = sdf.parse(time).getTime();
             taskService.updateTime(Integer.parseInt(taskID), new Time(ms));
         } catch (ParseException | SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         resp.sendRedirect("/profile");

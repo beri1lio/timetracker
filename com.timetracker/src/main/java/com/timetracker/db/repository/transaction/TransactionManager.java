@@ -1,9 +1,14 @@
 package com.timetracker.db.repository.transaction;
 
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionManager {
+
+    private static final Logger LOGGER = Logger.getLogger(TransactionManager.class);
 
     public Object execute(TransactionOperation transactionOperation, Connection connection) throws SQLException {
         Object result = null;
@@ -15,6 +20,7 @@ public class TransactionManager {
             if(connection != null){
                 connection.rollback();
             }
+            LOGGER.error(throwables.getMessage());
         } finally {
             if (connection != null) {
                 connection.close();

@@ -1,5 +1,8 @@
 package com.timetracker.db.repository.dao;
 
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -9,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionPool {
+
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
     private static String dataBaseURL = "jdbc:mysql://localhost:3306/timetracker?user=root&password=4815162342&useSSL=false&allowPublicKeyRetrieval=true";
 
@@ -34,9 +39,8 @@ public class ConnectionPool {
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/timetracker");
             c = ds.getConnection();
         }catch (NamingException | SQLException e){
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return c;
-//        return DriverManager.getConnection(dataBaseURL);
     }
 }

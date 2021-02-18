@@ -4,6 +4,7 @@ import com.timetracker.db.entity.User;
 import com.timetracker.service.RegistrationService;
 import com.timetracker.service.impl.RegistrationServiceImpl;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import java.sql.SQLException;
 
 @WebServlet("/registration-user")
 public class RegistrationServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(RegistrationServlet.class);
 
     private RegistrationService registrationService = new RegistrationServiceImpl();
 
@@ -34,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             registrationService.registrateNewUser(user);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error(throwables.getMessage());
         }
     resp.sendRedirect("/");
     }

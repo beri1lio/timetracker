@@ -8,10 +8,12 @@ import com.timetracker.service.UserService;
 import com.timetracker.service.impl.CategoriesServiceImpl;
 import com.timetracker.service.impl.TaskServiceImpl;
 import com.timetracker.service.impl.UserServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
 import com.timetracker.util.pagination.PaginationDataCountProvider;
 import com.timetracker.util.pagination.PaginationDataDefaultOrderProvider;
 import com.timetracker.util.pagination.PaginationDataProvider;
 import com.timetracker.util.pagination.PaginationUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @WebServlet("/tasks")
 public class TasksServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(TasksServlet.class);
 
     private UserService userService = new UserServiceImpl();
     private CategoriesService categoriesService = new CategoriesServiceImpl();
@@ -63,7 +67,7 @@ public class TasksServlet extends HttpServlet {
                 req.setAttribute("categories", categories);
             }
         } catch (SQLException throwables){
-            throwables.printStackTrace();
+            LOGGER.error(throwables.getMessage());
         }
 
         req.getRequestDispatcher("task-admin.jsp").forward(req, resp);

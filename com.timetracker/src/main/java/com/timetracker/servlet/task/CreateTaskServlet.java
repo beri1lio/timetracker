@@ -4,6 +4,8 @@ import com.timetracker.db.entity.Status;
 import com.timetracker.db.entity.Task;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,8 @@ import java.sql.SQLException;
 
 @WebServlet("/task")
 public class CreateTaskServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(CreateTaskServlet.class);
 
     private TaskService taskService = new TaskServiceImpl();
 
@@ -33,7 +37,7 @@ public class CreateTaskServlet extends HttpServlet {
         try{
             taskService.newTask(task);
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            LOGGER.error(sqlException.getMessage());
         }
 
         resp.sendRedirect("/tasks");

@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet("/users")
 public class UserAdminServlet extends HttpServlet {
+
     private UserService userService = new UserServiceImpl();
 
     private final PaginationDataProvider dataProvider = new PaginationDataProvider() {

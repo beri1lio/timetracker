@@ -1,5 +1,8 @@
 package com.timetracker.util.pagination;
 
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -7,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class PaginationUtil {
+
+    private static final Logger LOGGER = Logger.getLogger(PaginationUtil.class);
 
     private PaginationUtil(){}
 
@@ -45,7 +50,7 @@ public class PaginationUtil {
         try {
             return (int) Math.ceil(dataCountProvider.provideDataCount(search) / 10.0);
         } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
+            LOGGER.error(throwables.getMessage());
             return defaultMaxPageNumber;
         }
     }
@@ -70,6 +75,7 @@ public class PaginationUtil {
         try {
             return dataProvider.provideData(offset, 10, orderBy, searchParam);
         } catch (SQLException throwables) {
+            LOGGER.error(throwables.getMessage());
             return defaultData;
         }
     }

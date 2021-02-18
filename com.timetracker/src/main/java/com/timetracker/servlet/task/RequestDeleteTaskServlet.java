@@ -3,6 +3,8 @@ package com.timetracker.servlet.task;
 import com.timetracker.db.entity.Status;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,8 @@ import java.sql.SQLException;
 @WebServlet("/request-delete-task")
 public class RequestDeleteTaskServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(RequestDeleteTaskServlet.class);
+
     private TaskService taskService = new TaskServiceImpl();
 
     @Override
@@ -24,7 +28,7 @@ public class RequestDeleteTaskServlet extends HttpServlet {
         try {
             taskService.updateStatus(Integer.parseInt(taskID), Status.DELETED);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         resp.sendRedirect("/profile");

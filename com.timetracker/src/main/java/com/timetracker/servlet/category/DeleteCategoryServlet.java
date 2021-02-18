@@ -2,6 +2,7 @@ package com.timetracker.servlet.category;
 
 import com.timetracker.service.CategoryService;
 import com.timetracker.service.impl.CategoryServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/delete-category")
-public class DeleteCategoryrServlet extends HttpServlet {
+public class DeleteCategoryServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(DeleteCategoryServlet.class);
 
     private CategoryService categoryService = new CategoryServiceImpl();
 
@@ -23,7 +26,7 @@ public class DeleteCategoryrServlet extends HttpServlet {
         try {
             categoryService.deleteCategory(Integer.parseInt(categoryID));
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error(throwables);
         }
 
         resp.sendRedirect("/categories");

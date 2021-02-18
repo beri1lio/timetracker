@@ -2,6 +2,8 @@ package com.timetracker.servlet.user;
 
 import com.timetracker.service.UserService;
 import com.timetracker.service.impl.UserServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,8 @@ import java.sql.SQLException;
 @WebServlet("/delete-user")
 public class DeleteUserServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(DeleteUserServlet.class);
+
     private UserService userService = new UserServiceImpl();
 
     @Override
@@ -23,7 +27,7 @@ public class DeleteUserServlet extends HttpServlet {
         try {
             userService.deleteUser(Integer.parseInt(userID));
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error(throwables.getMessage());
         }
 
         resp.sendRedirect("/users");

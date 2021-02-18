@@ -3,6 +3,8 @@ package com.timetracker.servlet.category;
 import com.timetracker.db.entity.Category;
 import com.timetracker.service.CategoryService;
 import com.timetracker.service.impl.CategoryServiceImpl;
+import com.timetracker.servlet.AuthorizationServlet;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,8 @@ import java.sql.SQLException;
 
 @WebServlet("/category")
 public class CreateCategoryServlet extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(CreateCategoryServlet.class);
 
     private CategoryService categoryService = new CategoryServiceImpl();
 
@@ -27,7 +31,7 @@ public class CreateCategoryServlet extends HttpServlet {
         try{
             categoryService.newCategory(category);
         }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            LOGGER.error(sqlException.getMessage());
         }
 
         resp.sendRedirect("/tasks");
