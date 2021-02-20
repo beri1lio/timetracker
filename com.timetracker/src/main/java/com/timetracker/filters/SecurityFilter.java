@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * This class add security filters.
+ */
 @WebFilter(urlPatterns = "/*")
 public class SecurityFilter implements Filter {
     private HttpServletRequest httpRequest;
@@ -17,10 +20,16 @@ public class SecurityFilter implements Filter {
             "/profile", "/tasks", "/categories", "/users", "/approve-tasks"
     };
 
+    /**
+     * list forbidden sites for Client
+     */
     private static final String[] forbiddenForClient = {
             "/tasks", "/categories", "/users", "/approve-tasks"
     };
 
+    /**
+     * method give permission to certain roles for certain sites.
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
@@ -35,6 +44,9 @@ public class SecurityFilter implements Filter {
         boolean isIndexPage = httpRequest.getRequestURI().endsWith("/");
 
 
+        /**
+         * if role is admin -> redirect to /tasks, if role is client to redirect /profile.
+         */
         if (isLoggedIn && isIndexPage) {
             if (isAdmin()) {
                 httpServletResponse.sendRedirect("/tasks");
@@ -45,13 +57,10 @@ public class SecurityFilter implements Filter {
 
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             httpServletResponse.sendRedirect("/");
-            //httpRequest.getRequestDispatcher("/").forward(request, response);
         } else if (!isLoggedIn && isLoginRequired()) {
             httpServletResponse.sendRedirect("/authorization");
-            //httpRequest.getRequestDispatcher("/authorization").forward(request, response);
         } else if(isLoggedIn && isClient() && isForbiddenForClient()) {
             httpServletResponse.sendRedirect("/404");
-            //httpRequest.getRequestDispatcher("/404").forward(request, response);
         } else {
             chain.doFilter(request, response);
         }
