@@ -3,7 +3,7 @@ package com.timetracker.servlet.category;
 import com.timetracker.db.entity.Category;
 import com.timetracker.service.CategoryService;
 import com.timetracker.service.impl.CategoryServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
+import com.timetracker.util.ValidationUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -24,6 +24,13 @@ public class CreateCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("category");
+
+
+        boolean isNotEmptyName = ValidationUtil.isNotEmptyValidation(name, "category", "global.missingCategoryError", req);
+        if(!isNotEmptyName){
+            resp.sendRedirect("/tasks");
+            return;
+        }
 
         Category category = new Category.Builder()
                 .withName(name)

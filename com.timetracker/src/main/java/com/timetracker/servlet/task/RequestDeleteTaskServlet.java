@@ -3,7 +3,6 @@ package com.timetracker.servlet.task;
 import com.timetracker.db.entity.Status;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

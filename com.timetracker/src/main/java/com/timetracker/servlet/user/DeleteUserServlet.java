@@ -2,7 +2,6 @@ package com.timetracker.servlet.user;
 
 import com.timetracker.service.UserService;
 import com.timetracker.service.impl.UserServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

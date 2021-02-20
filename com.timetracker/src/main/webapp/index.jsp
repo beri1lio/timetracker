@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "my" uri = "/WEB-INF/tag/taglib.tld"%>
+
 <html>
 <head>
     <c:set var="currentPageName" value="index" scope="session"/>
@@ -22,9 +24,10 @@
                     <p class="card-text">
                         <a class="card-link" href="/authorization">
                             <fmt:message key="global.log_in" bundle="${bundle}"/>
-                            <a class="card-link" href="/registration"><fmt:message key="global.sign_up"
-                                                                                   bundle="${bundle}"/>
-
+                        </a>
+                        <a class="card-link" href="/registration">
+                            <fmt:message key="global.sign_up" bundle="${bundle}"/>
+                        </a>
                     </p>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 package com.timetracker.util.pagination;
 
-import com.timetracker.servlet.AuthorizationServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

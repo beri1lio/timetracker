@@ -2,7 +2,7 @@ package com.timetracker.servlet.task;
 
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
+import com.timetracker.util.ValidationUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet("/update-time")
 public class UpdateTaskServlet extends HttpServlet {
@@ -29,6 +31,14 @@ public class UpdateTaskServlet extends HttpServlet {
         String taskID = req.getParameter("task-id");
         String time = req.getParameter("time");
 
+        Pattern pattern = Pattern.compile("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$");
+        Matcher matcher = pattern.matcher(time);
+        boolean isTimeValid = matcher.find();
+        ValidationUtil.validate(isTimeValid, "time", "global.missingTimeError", req);
+        if (!isTimeValid) {
+            resp.sendRedirect("/profile");
+            return;
+        }
         try {
             long ms = sdf.parse(time).getTime();
             taskService.updateTime(Integer.parseInt(taskID), new Time(ms));

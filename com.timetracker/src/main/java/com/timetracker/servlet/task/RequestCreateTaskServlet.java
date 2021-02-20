@@ -4,7 +4,7 @@ import com.timetracker.db.entity.Status;
 import com.timetracker.db.entity.Task;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.TaskServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
+import com.timetracker.util.ValidationUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -26,6 +26,13 @@ public class RequestCreateTaskServlet extends HttpServlet {
         int userId = (int) req.getSession().getAttribute("userID");
         String name = req.getParameter("taskName");
         String categoryID = req.getParameter("categoryID");
+
+        boolean isNotEmptyName = ValidationUtil.isNotEmptyValidation(name, "taskName", "global.missingTaskNameError", req);
+        boolean isNotEmptyCategoryID = ValidationUtil.isNotEmptyValidation(categoryID, "categoryID", "global.missingCategoryError", req);
+        if(!isNotEmptyName || !isNotEmptyCategoryID){
+            resp.sendRedirect("/profile");
+            return;
+        }
 
         Task task = new Task.Builder()
                 .withName(name)

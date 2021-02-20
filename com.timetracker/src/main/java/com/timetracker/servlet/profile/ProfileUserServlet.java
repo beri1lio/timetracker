@@ -5,7 +5,6 @@ import com.timetracker.service.CategoriesService;
 import com.timetracker.service.TaskService;
 import com.timetracker.service.impl.CategoriesServiceImpl;
 import com.timetracker.service.impl.TaskServiceImpl;
-import com.timetracker.servlet.AuthorizationServlet;
 import com.timetracker.util.pagination.PaginationDataCountProvider;
 import com.timetracker.util.pagination.PaginationDataDefaultOrderProvider;
 import com.timetracker.util.pagination.PaginationDataProvider;

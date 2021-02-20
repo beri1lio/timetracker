@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "my" uri = "/WEB-INF/tag/taglib.tld"%>
 
 <html>
 <head>
@@ -26,18 +27,37 @@
                         <div class="mb-3">
                             <label for="InputLogin" class="form-label"><fmt:message key="global.Enter_login"
                                                                                     bundle="${bundle}"/></label>
+                            <c:if test="${!sessionScope.ERRORS.containsKey('login')}">
                             <input type="text" class="form-control" id="InputLogin" name="login">
+                            </c:if>
+                            <c:if test="${sessionScope.ERRORS.containsKey('login')}">
+                                <input type="text" class="form-control is-invalid" id="InputLogin" name="login">
+                                <fmt:message key="${sessionScope.ERRORS.get('login')}" bundle="${bundle}"/>
+                            </c:if>
                         </div>
+
                         <div class="mb-3">
-                            <label for="InputName" class="form-label"><fmt:message key="global.enter_name"
-                                                                                   bundle="${bundle}"/></label>
+                            <label for="InputName" class="form-label"><fmt:message key="global.enter_name" bundle="${bundle}"/></label>
+                            <c:if test="${!sessionScope.ERRORS.containsKey('name')}">
                             <input type="text" class="form-control" id="InputName" name="name">
+                            </c:if>
+                            <c:if test="${sessionScope.ERRORS.containsKey('name')}">
+                                <input type="text" class="form-control is-invalid" id="InputName" name="name">
+                                <fmt:message key="${sessionScope.ERRORS.get('name')}" bundle="${bundle}"/>
+                            </c:if>
                         </div>
+
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label"><fmt:message key="global.password"
-                                                                                               bundle="${bundle}"/></label>
+                            <label for="exampleInputPassword1" class="form-label"><fmt:message key="global.password" bundle="${bundle}"/></label>
+                            <c:if test="${!sessionScope.ERRORS.containsKey('password')}">
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                            </c:if>
+                            <c:if test="${sessionScope.ERRORS.containsKey('password')}">
+                                <input type="password" class="form-control is-invalid" id="exampleInputPassword1" name="password">
+                                <fmt:message key="${sessionScope.ERRORS.get('password')}" bundle="${bundle}"/>
+                            </c:if>
                         </div>
+
                         <button type="submit" class="btn btn-primary"><fmt:message key="global.submit"
                                                                                    bundle="${bundle}"/></button>
                     </form>

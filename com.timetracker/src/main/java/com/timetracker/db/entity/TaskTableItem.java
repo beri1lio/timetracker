@@ -2,6 +2,9 @@ package com.timetracker.db.entity;
 
 import java.sql.Time;
 
+/**
+ * This is entity for task table plus category name and user name.
+ */
 public class TaskTableItem {
     private int id;
     private String name;
@@ -34,6 +37,9 @@ public class TaskTableItem {
         return status;
     }
 
+    /**
+     * Pattern Builder.
+     */
     public static class Builder{
         private TaskTableItem item;
 

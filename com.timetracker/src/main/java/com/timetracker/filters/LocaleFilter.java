@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * This class add to user different language.
+ */
 @WebFilter(urlPatterns = "/*")
 public class LocaleFilter implements Filter {
     @Override
@@ -12,6 +15,14 @@ public class LocaleFilter implements Filter {
 
     }
 
+    /**
+     * This method determines which locale
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String locale = servletRequest.getParameter("locale");

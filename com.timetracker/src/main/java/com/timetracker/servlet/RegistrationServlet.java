@@ -3,6 +3,7 @@ package com.timetracker.servlet;
 import com.timetracker.db.entity.User;
 import com.timetracker.service.RegistrationService;
 import com.timetracker.service.impl.RegistrationServiceImpl;
+import com.timetracker.util.ValidationUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
@@ -27,6 +28,15 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String md5HexPassword = DigestUtils.md5Hex(password);
+
+        boolean isNotEmptyLogin = ValidationUtil.isNotEmptyValidation(login, "login", "global.missingLoginError", req);
+        boolean isNotEmptyName = ValidationUtil.isNotEmptyValidation(login, "name", "global.missingNameError", req);
+        boolean isNotEmptyPass = ValidationUtil.isNotEmptyValidation(password, "password", "global.missingPasswordError", req);
+        boolean isNotTooShortPass = ValidationUtil.isNotTooShortValidation(password, 5, "password", "global.shortPasswordError", req);
+        if(!isNotEmptyLogin || !isNotEmptyName || !isNotEmptyPass || !isNotTooShortPass){
+            resp.sendRedirect("/registration");
+            return;
+        }
 
         User user = new User.Builder()
                 .withLogin(login)

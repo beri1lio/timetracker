@@ -1,5 +1,8 @@
 package com.timetracker.db.entity;
 
+/**
+ * This is entity for category table.
+ */
 public class Category {
     private int id;
     private String name;
@@ -12,6 +15,9 @@ public class Category {
         return name;
     }
 
+    /**
+     * Pattern Builder.
+     */
     public static class Builder{
         private Category category;
 

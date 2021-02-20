@@ -1,8 +1,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="resources/img/clock.jpg" alt="" width="30" height="24"
-                 class="d-inline-block align-top">
+            <my:logo image="resources/img/clock.jpg"/>
             <fmt:message key="global.index" bundle="${bundle}"/>
         </a>
         <ul class="nav nav-pills">
@@ -25,8 +24,7 @@
             </li>
             <li class="nav-item">
                 <form action="/logout" method="post">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="global.log_out"
-                                                                               bundle="${bundle}"/></button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="global.log_out" bundle="${bundle}"/></button>
                 </form>
             </li>
         </ul>

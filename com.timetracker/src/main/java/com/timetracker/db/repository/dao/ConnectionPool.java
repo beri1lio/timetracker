@@ -1,6 +1,5 @@
 package com.timetracker.db.repository.dao;
 
-import com.timetracker.servlet.AuthorizationServlet;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -8,9 +7,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Connection Pool.
+ */
 public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
@@ -19,9 +20,13 @@ public class ConnectionPool {
 
     private static ConnectionPool instance;
 
+    /**
+     * Private constructor in order not to be able to create a new.
+     */
     private ConnectionPool() {
 
     }
+
 
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {

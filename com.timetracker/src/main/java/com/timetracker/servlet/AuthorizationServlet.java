@@ -4,6 +4,7 @@ package com.timetracker.servlet;
 import com.timetracker.db.entity.User;
 import com.timetracker.service.AuthorizationService;
 import com.timetracker.service.impl.AuthorizationServiceImpl;
+import com.timetracker.util.ValidationUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
@@ -28,6 +29,14 @@ public class AuthorizationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String md5HexPassword = DigestUtils.md5Hex(password);
+
+        boolean isNotEmptyLogin = ValidationUtil.isNotEmptyValidation(login, "login", "global.missingLoginError", req);
+        boolean isNotEmptyPass = ValidationUtil.isNotEmptyValidation(password, "password", "global.missingPasswordError", req);
+        boolean isNotTooShortPass = ValidationUtil.isNotTooShortValidation(password, 5, "password", "global.shortPasswordError", req);
+        if (!isNotEmptyLogin || !isNotEmptyPass || !isNotTooShortPass) {
+            resp.sendRedirect("/authorization");
+            return;
+        }
 
         User user = new User.Builder()
                 .withLogin(login)

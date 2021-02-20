@@ -1,5 +1,8 @@
 package com.timetracker.db.entity;
 
+/**
+ * This is entity for user table.
+ */
 public class User {
     private int id;
     private String name;
@@ -27,6 +30,9 @@ public class User {
         return role;
     }
 
+    /**
+     * Pattern Builder.
+     */
     public static class Builder{
         private User user;
 

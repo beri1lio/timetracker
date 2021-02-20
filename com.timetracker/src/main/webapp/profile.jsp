@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "my" uri = "/WEB-INF/tag/taglib.tld"%>
 <html>
 <head>
     <c:set var="currentPageName" value="profile" scope="session"/>
@@ -18,17 +19,33 @@
         <form class="row gy-2 gx-3 align-items-center" action="/request-create-task" method="post">
             <div class="col-auto">
                 <label class="visually-hidden" for="taskNameInput"><fmt:message key="global.task" bundle="${bundle}"/></label>
+                <c:if test="${!sessionScope.ERRORS.containsKey('taskName')}">
                 <input type="text" name="taskName" class="form-control" id="taskNameInput"
                        placeholder=<fmt:message key="global.task" bundle="${bundle}"/>>
+                </c:if>
+                <c:if test="${sessionScope.ERRORS.containsKey('taskName')}">
+                    <input type="text" name="taskName" class="form-control is-invalid" id="taskNameInput"
+                           placeholder=<fmt:message key="global.task" bundle="${bundle}"/>>
+                </c:if>
             </div>
             <div class="col-auto">
                 <label class="visually-hidden" for="categorySelect"><fmt:message key="global.category" bundle="${bundle}"/></label>
+                <c:if test="${!sessionScope.ERRORS.containsKey('categoryID')}">
                 <select class="form-select" id="categorySelect" name="categoryID">
-                    <option selected><fmt:message key="global.category" bundle="${bundle}"/>...</option>
+                    <option selected value=""><fmt:message key="global.category" bundle="${bundle}"/>...</option>
                     <c:forEach items="${categories}" var="category">
                         <option value="${category.id}">${category.name}</option>
                     </c:forEach>
                 </select>
+                </c:if>
+                <c:if test="${sessionScope.ERRORS.containsKey('categoryID')}">
+                <select class="form-select is-invalid" id="categorySelect" name="categoryID">
+                    <option selected value=""><fmt:message key="global.category" bundle="${bundle}"/>...</option>
+                    <c:forEach items="${categories}" var="category">
+                        <option value="${category.id}">${category.name}</option>
+                    </c:forEach>
+                </select>
+                </c:if>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary"><fmt:message key="global.create_task" bundle="${bundle}"/></button>
@@ -56,7 +73,12 @@
                         <form class="row gy-2 gx-3 align-items-center" action="/update-time" method="post">
                             <div class="input-group">
                                 <input type="hidden" name="task-id" value="${task.id}">
+                                <c:if test="${!sessionScope.ERRORS.containsKey('time')}">
                                 <input type="text" name="time" class="form-control" aria-describedby="time">
+                                </c:if>
+                                <c:if test="${sessionScope.ERRORS.containsKey('time')}">
+                                <input type="text" name="time" class="form-control is-invalid" aria-describedby="time">
+                                </c:if>
                                 <button class="btn btn-outline-secondary" type="submit"><fmt:message key="global.update" bundle="${bundle}"/></button>
                             </div>
                         </form>
