@@ -55,7 +55,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <a class="page-link"
-                           href="/category?currentPage=${currentPage - 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.previous" bundle="${bundle}"/></a>
+                           href="/categories?currentPage=${currentPage - 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.previous" bundle="${bundle}"/></a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -69,7 +69,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <a class="page-link"
-                           href="/category?currentPage=${currentPage + 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.next" bundle="${bundle}"/></a>
+                           href="/categories?currentPage=${currentPage + 1}&search=${search}&orderBy=${orderBy}"><fmt:message key="global.next" bundle="${bundle}"/></a>
                     </li>
                 </c:otherwise>
             </c:choose>
