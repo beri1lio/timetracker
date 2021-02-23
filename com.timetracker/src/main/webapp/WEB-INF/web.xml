@@ -63,7 +63,6 @@
         <filter-name>QueryFilter</filter-name>
         <filter-class>com.timetracker.filters.QueryFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>QueryFilter</filter-name>
         <url-pattern>/*</url-pattern>

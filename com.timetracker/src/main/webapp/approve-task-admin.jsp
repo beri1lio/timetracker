@@ -19,6 +19,7 @@
             <%@ include file="/WEB-INF/jspf/admin-navigation.jspf" %>
         </div>
     </div>
+    <!-- TABLE START -->
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -85,6 +86,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <!-- TABLE END -->
 </div>
 <%@ include file="/WEB-INF/jspf/foother.jspf" %>
 </body>

@@ -53,6 +53,7 @@
         </form>
     </div>
     <!-- CREATE TASK END-->
+    <!-- TABLE START-->
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -120,6 +121,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <!-- TABLE FINISH-->
     <!--PAGINATION START-->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
