@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Serves for paging of retrieved from database on the view.
+ */
 public class PaginationUtil {
 
     private static final Logger LOGGER = Logger.getLogger(PaginationUtil.class);
@@ -45,6 +48,9 @@ public class PaginationUtil {
         return currentPageNumber * 10;
     }
 
+    /**
+     * Calculates the maximum number of pages using the formula.
+     */
     private static int getMaxPageNumber(String search, PaginationDataCountProvider dataCountProvider, int defaultMaxPageNumber) {
         try {
             return (int) Math.ceil(dataCountProvider.provideDataCount(search) / 10.0);
@@ -70,7 +76,8 @@ public class PaginationUtil {
         return defaultOrderBy;
     }
 
-    private static List getData(int offset, int limit, String orderBy, String searchParam, PaginationDataProvider dataProvider, List defaultData) {
+    private static List getData(int offset, int limit, String orderBy, String searchParam,
+                                PaginationDataProvider dataProvider, List defaultData) {
         try {
             return dataProvider.provideData(offset, 10, orderBy, searchParam);
         } catch (SQLException throwables) {

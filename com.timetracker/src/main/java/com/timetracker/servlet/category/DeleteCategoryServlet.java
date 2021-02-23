@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Deleting a category.
+ */
 @WebServlet("/delete-category")
 public class DeleteCategoryServlet extends HttpServlet {
 
@@ -25,8 +28,8 @@ public class DeleteCategoryServlet extends HttpServlet {
 
         try {
             categoryService.deleteCategory(Integer.parseInt(categoryID));
-        } catch (SQLException throwables) {
-            LOGGER.error(throwables);
+        } catch (SQLException e) {
+            LOGGER.error(e);
         }
 
         resp.sendRedirect("/categories");

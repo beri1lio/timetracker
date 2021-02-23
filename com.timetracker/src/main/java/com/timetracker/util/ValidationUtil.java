@@ -9,6 +9,9 @@ public class ValidationUtil {
 
     private ValidationUtil(){}
 
+    /**
+     * General method validation.
+     */
     public static void validate(boolean isValid, String fieldName, String errorMsgKey, HttpServletRequest request) {
         Object errorAttribute = request.getSession().getAttribute(ERROR_MAP_NAME);
         if (errorAttribute == null) {
@@ -26,15 +29,22 @@ public class ValidationUtil {
         request.getSession().setAttribute(ERROR_MAP_NAME, errorMap);
     }
 
+    /**
+     * Fullness check.
+     */
     public static boolean isNotEmptyValidation(String value, String fieldName, String errorMsgKey, HttpServletRequest request) {
         boolean isValid = value != null && !value.isEmpty();
         validate(isValid, fieldName, errorMsgKey, request);
         return isValid;
     }
 
+    /**
+     * This method that limits words to a certain size.
+     */
     public static boolean isNotTooShortValidation(String value, int size, String fieldName, String errorMsgKey, HttpServletRequest request) {
         boolean isValid = value.length() >= size;
         validate(isValid, fieldName, errorMsgKey, request);
         return isValid;
     }
+
 }

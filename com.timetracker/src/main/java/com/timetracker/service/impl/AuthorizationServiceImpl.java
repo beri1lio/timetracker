@@ -8,12 +8,16 @@ import com.timetracker.service.AuthorizationService;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Provides implementation of all {@code AuthorizationService} interface methods.
+ */
 public class AuthorizationServiceImpl implements AuthorizationService {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private UserDAO userDAO = new UserDAO();
+
     @Override
-    public User authorizateUser(User user) throws SQLException {
+    public User authorizeUser(User user) throws SQLException {
         Connection connection = connectionPool.getConnection();
         User currentUser = userDAO.getUser(user.getLogin(), user.getPassword(), connection);
         connection.close();

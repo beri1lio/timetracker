@@ -22,6 +22,10 @@ public class RegistrationServlet extends HttpServlet {
 
     private RegistrationService registrationService = new RegistrationServiceImpl();
 
+    /**
+     * Until the user is validated, registration will not work.
+     * When registration is complete, you will be redirected to the home page.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
@@ -45,7 +49,7 @@ public class RegistrationServlet extends HttpServlet {
                 .build();
 
         try {
-            registrationService.registrateNewUser(user);
+            registrationService.registrateUser(user);
         } catch (SQLException throwables) {
             LOGGER.error(throwables.getMessage());
         }

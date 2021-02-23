@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Create a task.
+ */
 @WebServlet("/task")
 public class CreateTaskServlet extends HttpServlet {
 

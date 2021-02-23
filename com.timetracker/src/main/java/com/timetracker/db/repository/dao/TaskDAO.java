@@ -46,6 +46,20 @@ public class TaskDAO {
     private static final String DELETE_TASK = "DELETE FROM `task` WHERE `id`=?";
 
     /**
+     * Return task.
+     * @param id - id.
+     * @param sql - sql query that uses the id to determine the desired query.
+     */
+    public Task getTask(int id, String sql, Connection connection) throws SQLException{
+        Task task = null;
+        PreparedStatement statement = connection
+                .prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        statement.setInt(1, id);
+
+        return getTask(task, statement);
+    }
+
+    /**
      * Return task with id.
      * @param id - task id.
      */
@@ -57,31 +71,8 @@ public class TaskDAO {
      * Return task with user id.
      * @param userID - user id.
      */
-    public Task getTaskUserId(int userID, Connection connection) throws SQLException{
+    public Task getTaskByUserId(int userID, Connection connection) throws SQLException{
         return getTask(userID, SELECT_FROM_TASK_WHERE_USER_ID, connection);
-    }
-
-    /**
-     * Return list of tasks with user id.
-     * @param userID - user id.
-     */
-    public List<Task> getTasksUserId(int userID, Connection connection) throws SQLException{
-        return getTasks(userID, connection, SELECT_FROM_TASK_WHERE_USER_ID);
-    }
-
-    /**
-     * Return list of tasks with user id or category id.
-     * @param id - task id.
-     * @param sql - sql query that shows the task calculated for a certain user or category.
-     */
-    private List<Task> getTasks(int id, Connection connection, String sql) throws SQLException {
-        List<Task> taskList = new ArrayList<>();
-        PreparedStatement statement = connection
-                .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        statement.setInt(1, id);
-
-        ResultSet resultSet = statement.executeQuery();
-        return getTasks(taskList, resultSet);
     }
 
     /**
@@ -104,24 +95,44 @@ public class TaskDAO {
     }
 
     /**
-     * Return list of tasks with category id.
-     * @param categoryID - category id.
+     * Return all tasks.
      */
-    public List<Task> getTasksCategoryId(int categoryID, Connection connection) throws SQLException{
-        return getTasks(categoryID, connection, SELECT_FROM_TASK_WHERE_CATEGORY_ID);
+    public List<Task> findAllTasks(Connection connection) throws SQLException {
+        List<Task> taskList = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(SELECT_FROM_TASK);
+        return getTasks(taskList, resultSet);
     }
 
     /**
-     * Return task with name.
-     * @param name - name task.
+     * Return list of tasks with user id or category id.
+     * @param id - task id.
+     * @param sql - sql query that shows the task calculated for a certain user or category.
      */
-    public Task getTask(String name, Connection connection) throws SQLException{
-        Task task = null;
+    private List<Task> getTasks(int id, Connection connection, String sql) throws SQLException {
+        List<Task> taskList = new ArrayList<>();
         PreparedStatement statement = connection
-                .prepareStatement(SELECT_FROM_TASK_WHERE_NAME,Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, name);
+                .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        statement.setInt(1, id);
 
-        return getTask(task, statement);
+        ResultSet resultSet = statement.executeQuery();
+        return getTasks(taskList, resultSet);
+    }
+
+    /**
+     * Return list of tasks with user id.
+     * @param userID - user id.
+     */
+    public List<Task> getTasksByUserId(int userID, Connection connection) throws SQLException{
+        return getTasks(userID, connection, SELECT_FROM_TASK_WHERE_USER_ID);
+    }
+
+    /**
+     * Return list of tasks with category id.
+     * @param categoryID - category id.
+     */
+    public List<Task> getTasksByCategoryId(int categoryID, Connection connection) throws SQLException{
+        return getTasks(categoryID, connection, SELECT_FROM_TASK_WHERE_CATEGORY_ID);
     }
 
     /**
@@ -145,15 +156,14 @@ public class TaskDAO {
     }
 
     /**
-     * Return task.
-     * @param id - id.
-     * @param sql - sql query that uses the id to determine the desired query.
+     * Return task with name.
+     * @param name - name task.
      */
-    public Task getTask(int id, String sql, Connection connection) throws SQLException{
+    public Task getTask(String name, Connection connection) throws SQLException{
         Task task = null;
         PreparedStatement statement = connection
-                .prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-        statement.setInt(1, id);
+                .prepareStatement(SELECT_FROM_TASK_WHERE_NAME,Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, name);
 
         return getTask(task, statement);
     }
@@ -177,10 +187,41 @@ public class TaskDAO {
     }
 
     /**
+     * Return list with the unapproved tasks(NEW or DELETED).
+     */
+    public List<TaskTableItem> getUnapprovedTasks(Connection connection) throws SQLException {
+        List<TaskTableItem> tasks = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(SELECT_UNAPPROVED_TASKS);
+
+        return getTaskTableItems(tasks, resultSet);
+    }
+
+    /**
+     * Return all task table with user name and category name. With a certain offset,
+     * data limit and word sorting.
+     * @param offset - offset.
+     * @param limit - data limit.
+     * @param orderBy - word sorting.
+     * @param search - key word.
+     */
+    public List<TaskTableItem> findAllTasks(int offset, int limit, String orderBy, String search, Connection connection) throws SQLException {
+        List<TaskTableItem> taskList = new ArrayList<>();
+        PreparedStatement statement = connection.prepareStatement(String.format(SELECT_FROM_TASK_PAGINATION, orderBy));
+        statement.setString(1, "%" + search + "%");
+        statement.setString(2, "%" + search + "%");
+        statement.setString(3, "%" + search + "%");
+        statement.setInt(4, offset);
+        statement.setInt(5, limit);
+        ResultSet resultSet = statement.executeQuery();
+        return getTaskTableItems(taskList, resultSet);
+    }
+
+    /**
      * Return all tasks with a certain offset and data limit.
      * @param userID - user id.
      */
-    public List<Task> getTasksUserId(int userID, int offset, int limit, Connection connection) throws SQLException {
+    public List<Task> getTasksByUserId(int userID, int offset, int limit, Connection connection) throws SQLException {
         List<Task> taskList = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement(SELECT_TASKS_BY_USER);
         statement.setInt(1, userID);
@@ -219,7 +260,7 @@ public class TaskDAO {
     }
 
     /**
-     * Return all tasks with id user.
+     * Return all tasks by id user.
      * @param userID - user id.
      */
     public int getTaskCount(int userID, Connection connection) throws SQLException {
@@ -231,47 +272,6 @@ public class TaskDAO {
             return resultSet.getInt(1);
         }
         return -1;
-    }
-
-    /**
-     * Return list with the unapproved tasks.
-     */
-    public List<TaskTableItem> getUnapprovedTasks(Connection connection) throws SQLException {
-        List<TaskTableItem> tasks = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SELECT_UNAPPROVED_TASKS);
-
-        return getTaskTableItems(tasks, resultSet);
-    }
-
-    /**
-     * Return all tasks.
-     */
-    public List<Task> findAllTasks(Connection connection) throws SQLException {
-        List<Task> taskList = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SELECT_FROM_TASK);
-        return getTasks(taskList, resultSet);
-    }
-
-    /**
-     * Return all task table with user name and category name. With a certain offset,
-     * data limit and word sorting.
-     * @param offset - offset.
-     * @param limit - data limit.
-     * @param orderBy - word sorting.
-     * @param search - key word.
-     */
-    public List<TaskTableItem> findAllTasks(int offset, int limit, String orderBy, String search, Connection connection) throws SQLException {
-        List<TaskTableItem> taskList = new ArrayList<>();
-        PreparedStatement statement = connection.prepareStatement(String.format(SELECT_FROM_TASK_PAGINATION, orderBy));
-        statement.setString(1, "%" + search + "%");
-        statement.setString(2, "%" + search + "%");
-        statement.setString(3, "%" + search + "%");
-        statement.setInt(4, offset);
-        statement.setInt(5, limit);
-        ResultSet resultSet = statement.executeQuery();
-        return getTaskTableItems(taskList, resultSet);
     }
 
     /**

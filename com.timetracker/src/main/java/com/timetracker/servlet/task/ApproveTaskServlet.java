@@ -19,6 +19,9 @@ public class ApproveTaskServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(ApproveTaskServlet.class);
     private TaskService taskService = new TaskServiceImpl();
 
+    /**
+     * Method get Unapproved tasks(NEW, DELETED) and set in data.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

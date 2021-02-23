@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 /**
  * Transaction Manager.
+ * Transactions are not used in the project due to the fact that there can not be
+ * parallel queries.
  */
 public class TransactionManager {
 

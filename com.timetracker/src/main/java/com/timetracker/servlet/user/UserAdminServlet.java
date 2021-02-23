@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Pagination users.
+ */
 @WebServlet("/users")
 public class UserAdminServlet extends HttpServlet {
 
@@ -26,7 +29,7 @@ public class UserAdminServlet extends HttpServlet {
         @Override
         public List provideData(int offset, int limit, String orderBy, String search) throws SQLException {
 
-            return userService.findAllUser(offset, 10, orderBy, search);
+            return userService.findAllUsers(offset, 10, orderBy, search);
         }
     };
 

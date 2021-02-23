@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 
+/**
+ * Provides implementation of all {@code TaskServiceImpl} interface methods.
+ */
 public class TaskServiceImpl implements TaskService {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -80,7 +83,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findTasksByUserId(int id, int offset, int limit) throws SQLException {
         connection = connectionPool.getConnection();
-        List<Task> allTasks = taskDAO.getTasksUserId(id, offset, limit, connection);
+        List<Task> allTasks = taskDAO.getTasksByUserId(id, offset, limit, connection);
         connection.close();
         return allTasks;
     }

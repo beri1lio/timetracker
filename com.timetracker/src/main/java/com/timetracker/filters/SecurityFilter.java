@@ -20,15 +20,13 @@ public class SecurityFilter implements Filter {
             "/profile", "/tasks", "/categories", "/users", "/approve-tasks"
     };
 
-    /**
-     * list forbidden sites for Client
-     */
     private static final String[] forbiddenForClient = {
             "/tasks", "/categories", "/users", "/approve-tasks"
     };
 
     /**
-     * method give permission to certain roles for certain sites.
+     * Method give permission to certain roles for certain sites.
+     * If role is admin -> redirect to /tasks, if role is client to redirect /profile.
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -43,10 +41,6 @@ public class SecurityFilter implements Filter {
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("authorization");
         boolean isIndexPage = httpRequest.getRequestURI().endsWith("/");
 
-
-        /**
-         * if role is admin -> redirect to /tasks, if role is client to redirect /profile.
-         */
         if (isLoggedIn && isIndexPage) {
             if (isAdmin()) {
                 httpServletResponse.sendRedirect("/tasks");
@@ -66,24 +60,39 @@ public class SecurityFilter implements Filter {
         }
     }
 
+    /**
+     * Admin check.
+     */
     private boolean isAdmin() {
         String role = (String) httpRequest.getSession(false).getAttribute("userRole");
         return Role.ADMIN.name().equals(role);
     }
 
+    /**
+     * Client check.
+     */
     private boolean isClient() {
         String role = (String) httpRequest.getSession(false).getAttribute("userRole");
         return Role.CLIENT.name().equals(role);
     }
 
+    /**
+     * Check list forbidden URLs.
+     */
     private boolean isForbiddenForClient() {
         return checkPages(forbiddenForClient);
     }
 
+    /**
+     * Check all required URLs.
+     */
     private boolean isLoginRequired() {
         return checkPages(loginRequiredURLs);
     }
 
+    /**
+     * Check URLs.
+     */
     private boolean checkPages(String[] pages) {
         String requestURL = httpRequest.getRequestURL().toString();
 

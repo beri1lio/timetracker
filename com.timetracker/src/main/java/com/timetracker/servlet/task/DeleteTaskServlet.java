@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Delete a task.
+ */
 @WebServlet("/delete-task")
 public class DeleteTaskServlet extends HttpServlet {
 

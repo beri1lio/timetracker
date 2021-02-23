@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * A request to delete a task from a user.
+ */
 @WebServlet("/request-delete-task")
 public class RequestDeleteTaskServlet extends HttpServlet {
 

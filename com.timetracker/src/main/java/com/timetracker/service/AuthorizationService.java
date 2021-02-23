@@ -4,7 +4,10 @@ import com.timetracker.db.entity.User;
 
 import java.sql.SQLException;
 
+/**
+ * The interface contains methods to process requests from controller to DAO layer.
+ */
 public interface AuthorizationService {
 
-    User authorizateUser(User user) throws SQLException;
+    User authorizeUser(User user) throws SQLException;
 }

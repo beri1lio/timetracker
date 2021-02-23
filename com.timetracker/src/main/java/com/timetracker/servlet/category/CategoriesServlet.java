@@ -8,8 +8,6 @@ import com.timetracker.util.pagination.PaginationDataProvider;
 import com.timetracker.util.pagination.PaginationUtil;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpMethodConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +16,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * All categories.
+ */
 @WebServlet("/categories")
 public class CategoriesServlet extends HttpServlet {
 
@@ -26,7 +27,7 @@ public class CategoriesServlet extends HttpServlet {
     private final PaginationDataProvider dataProvider = new PaginationDataProvider() {
         @Override
         public List provideData(int offset, int limit, String orderBy, String search) throws SQLException {
-            return categoriesService.findAllCategory(offset, 10);
+            return categoriesService.findAllCategories(offset, 10);
         }
     };
 

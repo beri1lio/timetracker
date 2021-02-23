@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 
+/**
+ * The interface contains methods to process requests from controller to DAO layer.
+ */
 public interface TaskService {
 
     boolean newTask(Task task) throws SQLException;

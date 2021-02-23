@@ -4,7 +4,10 @@ import com.timetracker.db.entity.User;
 
 import java.sql.SQLException;
 
+/**
+ * The interface contains methods to process requests from controller to DAO layer.
+ */
 public interface RegistrationService {
 
-    boolean registrateNewUser(User user) throws SQLException;
+    boolean registrateUser(User user) throws SQLException;
 }

@@ -4,7 +4,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 /**
- * This class allows to use different language in request params;
+ * This class allows write in data base not only English but also Russian.
  */
 public class QueryFilter implements Filter {
     @Override
@@ -13,7 +13,7 @@ public class QueryFilter implements Filter {
     }
 
     /**
-     * This method allows to use different language in request params;
+     * This method allows to use Character Encoding UTF-8;
      * @param servletRequest - servlet request
      * @param servletResponse - servlet response
      * @param filterChain - filter chain

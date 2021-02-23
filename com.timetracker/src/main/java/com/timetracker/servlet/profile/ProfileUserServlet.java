@@ -56,7 +56,7 @@ public class ProfileUserServlet extends HttpServlet {
         PaginationUtil.executePagination(req, resp, dataProvider, dataCountProvider, dataDefaultOrderProvider);
 
         try{
-            List<Category> categories = categoriesService.findAllCategory();
+            List<Category> categories = categoriesService.findAllCategories();
             if(categories != null){
                 req.setAttribute("categories", categories);
             }

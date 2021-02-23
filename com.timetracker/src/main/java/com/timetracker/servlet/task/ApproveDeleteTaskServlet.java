@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * The servlet gives permission to delete the task.
+ */
 @WebServlet("/approve-delete-task")
 public class ApproveDeleteTaskServlet extends HttpServlet {
 

@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * When you create a task, it is specified a category and user, which will be in the drop-down list.
+ */
 @WebServlet("/tasks")
 public class TasksServlet extends HttpServlet {
 
@@ -57,8 +60,8 @@ public class TasksServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PaginationUtil.executePagination(req, resp, dataProvider, dataCountProvider, dataDefaultOrderProvider);
         try{
-            List<User> users = userService.findAllUser();
-            List<Category> categories = categoriesService.findAllCategory();
+            List<User> users = userService.findAllUsers();
+            List<Category> categories = categoriesService.findAllCategories();
             if(users != null){
                 req.setAttribute("users", users);
             }

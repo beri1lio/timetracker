@@ -8,6 +8,9 @@ import com.timetracker.service.CategoryService;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Provides implementation of all {@code CategoryServiceImpl} interface methods.
+ */
 public class CategoryServiceImpl implements CategoryService {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -29,8 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
 
-        Category category1 = categoryDAO.addCategory(connection, category);
+        Category newCategory = categoryDAO.addCategory(connection, category);
         connection.close();
-        return category1 != null;
+        return newCategory != null;
     }
 }

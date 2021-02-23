@@ -8,12 +8,15 @@ import com.timetracker.service.RegistrationService;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Provides implementation of all {@code RegistrationServiceImpl} interface methods.
+ */
 public class RegistrationServiceImpl implements RegistrationService {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private UserDAO userDAO = new UserDAO();
 
-    public boolean registrateNewUser(User user) throws SQLException {
+    public boolean registrateUser(User user) throws SQLException {
         Connection connection = connectionPool.getConnection();
         User currentUser = userDAO.getUser(user.getLogin(), connection);
 
@@ -23,9 +26,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 //        toDo user.getPassword()
 
-        User thisUser = userDAO.addUser(user, connection);
+        User newUser = userDAO.addUser(user, connection);
         connection.close();
-        return thisUser != null;
+        return newUser != null;
 
     }
 }

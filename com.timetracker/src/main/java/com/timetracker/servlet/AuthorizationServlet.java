@@ -24,6 +24,10 @@ public class AuthorizationServlet extends HttpServlet {
 
     private AuthorizationService authorizationService = new AuthorizationServiceImpl();
 
+    /**
+     * Until the user is validated, authorization will not work.
+     * When authorization is complete, you will be redirected to the page according to his role.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
@@ -45,7 +49,7 @@ public class AuthorizationServlet extends HttpServlet {
 
         User currentUser = null;
         try {
-            currentUser = authorizationService.authorizateUser(user);
+            currentUser = authorizationService.authorizeUser(user);
             HttpSession session = req.getSession();
             if (currentUser != null) {
                 session.setAttribute("userID", currentUser.getId());

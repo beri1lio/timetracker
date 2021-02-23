@@ -4,6 +4,9 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
+/**
+ * The tag that implements the image display.
+ */
 public class LogoTag extends SimpleTagSupport {
     private String image;
 

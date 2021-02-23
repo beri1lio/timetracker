@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Validation of the time spent by the user.
+ */
 @WebServlet("/update-time")
 public class UpdateTaskServlet extends HttpServlet {
 
