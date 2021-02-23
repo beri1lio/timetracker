@@ -25,6 +25,8 @@ public interface TaskService {
 
     List<TaskTableItem> findAllTasks(int offset, int limit, String orderBy, String search) throws SQLException;
 
+    List<Task> findAllTasks() throws SQLException;
+
     int getTaskCount(String search) throws SQLException;
 
     int getTaskCount(int userId) throws SQLException;

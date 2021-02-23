@@ -65,6 +65,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> findAllTasks() throws SQLException{
+        connection = connectionPool.getConnection();
+        List<Task> allTasks = taskDAO.findAllTasks(connection);
+        connection.close();
+        return allTasks;
+    }
+
+    @Override
     public int getTaskCount(String search) throws SQLException {
         connection = connectionPool.getConnection();
         int taskCount = taskDAO.getTaskCount(search, connection);

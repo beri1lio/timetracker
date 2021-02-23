@@ -1,7 +1,11 @@
 package com.timetracker.util;
 
+import com.timetracker.db.entity.Category;
+import com.timetracker.db.entity.Task;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ValidationUtil {
@@ -41,10 +45,36 @@ public class ValidationUtil {
     /**
      * This method that limits words to a certain size.
      */
-    public static boolean isNotTooShortValidation(String value, int size, String fieldName, String errorMsgKey, HttpServletRequest request) {
+    public static boolean isNotTooShortValidation(String value, int size, String fieldName, String errorMsgKey,
+                                                  HttpServletRequest request) {
         boolean isValid = value.length() >= size;
         validate(isValid, fieldName, errorMsgKey, request);
         return isValid;
     }
 
+    public static boolean isDuplicateCategories(List<Category> list, String value, String fieldName, String errorMsgKey,
+                                      HttpServletRequest req){
+        boolean isValid = false;
+        for (Category category : list) {
+            if(category.getName().equals(value)){
+                isValid = true;
+                break;
+            }
+        }
+        validate(!isValid, fieldName, errorMsgKey, req);
+        return isValid;
+    }
+
+    public static boolean isDuplicateTasks(List<Task> list, String value, String fieldName, String errorMsgKey,
+                                      HttpServletRequest req){
+        boolean isValid = false;
+        for (Task task : list) {
+            if(task.getName().equals(value)){
+                isValid = true;
+                break;
+            }
+        }
+        validate(!isValid, fieldName, errorMsgKey, req);
+        return isValid;
+    }
 }

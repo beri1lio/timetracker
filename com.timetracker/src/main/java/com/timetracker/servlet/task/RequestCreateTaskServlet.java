@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * A request to create a task from a user.
@@ -30,9 +31,17 @@ public class RequestCreateTaskServlet extends HttpServlet {
         String name = req.getParameter("taskName");
         String categoryID = req.getParameter("categoryID");
 
+        List<Task> list = null;
+        try {
+            list = taskService.findAllTasks();
+        } catch (SQLException throwables) {
+            LOGGER.error(throwables.getMessage());
+        }
+
+        boolean isDuplicate = ValidationUtil.isDuplicateTasks(list, name, "taskName", "global.duplicateError", req);
         boolean isNotEmptyName = ValidationUtil.isNotEmptyValidation(name, "taskName", "global.missingTaskNameError", req);
         boolean isNotEmptyCategoryID = ValidationUtil.isNotEmptyValidation(categoryID, "categoryID", "global.missingCategoryError", req);
-        if(!isNotEmptyName || !isNotEmptyCategoryID){
+        if(!isNotEmptyName || !isNotEmptyCategoryID || isDuplicate){
             resp.sendRedirect("/profile");
             return;
         }
