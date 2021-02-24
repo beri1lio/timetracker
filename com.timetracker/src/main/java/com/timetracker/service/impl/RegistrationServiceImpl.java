@@ -24,8 +24,6 @@ public class RegistrationServiceImpl implements RegistrationService {
             return false;
         }
 
-//        toDo user.getPassword()
-
         User newUser = userDAO.addUser(user, connection);
         connection.close();
         return newUser != null;

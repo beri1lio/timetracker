@@ -1,6 +1,5 @@
 package com.timetracker.servlet;
 
-
 import com.timetracker.db.entity.User;
 import com.timetracker.service.AuthorizationService;
 import com.timetracker.service.impl.AuthorizationServiceImpl;
