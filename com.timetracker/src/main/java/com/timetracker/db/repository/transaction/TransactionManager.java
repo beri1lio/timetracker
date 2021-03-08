@@ -30,6 +30,7 @@ public class TransactionManager {
             LOGGER.error(throwables.getMessage());
         } finally {
             if (connection != null) {
+                connection.commit();
                 connection.close();
             }
         }
