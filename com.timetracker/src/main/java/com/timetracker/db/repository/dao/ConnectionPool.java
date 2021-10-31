@@ -16,9 +16,7 @@ public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
-    private static String dataBaseURL = "jdbc:mysql://localhost:3306/timetracker?user=root&password=4815162342&useSSL=false&allowPublicKeyRetrieval=true";
-
-    private static ConnectionPool instance;
+   private static ConnectionPool instance;
 
     /**
      * Private constructor in order not to be able to create a new.
